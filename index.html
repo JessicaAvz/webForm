@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Reviews form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" href="styles/starability-grow.css"/>         
+    <link rel="stylesheet" type="text/css"  href="styles/webFormStyle.css"/>    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">   
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>        
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+    
+        <div class="card is-wide">
+            <header class="card-header">
+                <p class="card-header-title">
+                     Leave a review!
+                </p>
+            </header>
+            <div class="card-content">
+                <form id="reviewForm"  method="POST" onsubmit="return false;">
+                    <div class="field">
+                        <div class="control has-icons-left">
+                            <input class="input" id="inputName" type="text" placeholder="Enter your name" required="true" autocomplete="name">
+                            <span class="focus-border"></span>  
+                            <span class="icon is-small is-left">
+                                    <i class="fas fa-user"></i>
+                            </span>                      
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control has-icons-left">
+                            <input class="input" id="inputEmail" type="email" placeholder="Enter a valid email address" required="true" autocomplete="email">
+                            <span class="focus-border"></span>
+                            <span class="icon is-small is-left">
+                                    <i class="fas fa-envelope"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control has-icons-left">
+                            <input class="input" id="inputTitle" type="text" placeholder="Enter your review title" required="true">
+                            <span class="focus-border"></span>
+                            <span class="icon is-small is-left">
+                                <i class="far fa-comment-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                        <textarea class="textarea" id="inputDescription" placeholder="Enter your review" required="true"></textarea>
+                        <span class="focus-border"></span>
+                        </div>
+                    </div>
+
+                    <div class="control">
+                    <fieldset class="starability-grow" id="starRating">
+                        <legend class="label">Rate this place!</legend>
+                        <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
+                        <input type="radio" id="first-rate1" name="rating" value="1" />
+                        <label for="first-rate1" title="Terrible">1 star</label>
+                        <input type="radio" id="first-rate2" name="rating" value="2" />
+                        <label for="first-rate2" title="Not good">2 stars</label>
+                        <input type="radio" id="first-rate3" name="rating" value="3" />
+                        <label for="first-rate3" title="Average">3 stars</label>
+                        <input type="radio" id="first-rate4" name="rating" value="4" />
+                        <label for="first-rate4" title="Very good">4 stars</label>
+                        <input type="radio" id="first-rate5" name="rating" value="5" />
+                        <label for="first-rate5" title="Amazing">5 stars</label>
+                    </fieldset>
+                    </div>
+
+                    <div id="recaptcha" class="g-recaptcha" data-sitekey="6LcCpVwUAAAAAKneni3qsnIbU0J0Cjl3Ck0O1FmR"></div>
+                    <label class="msg-error"></label>
+          
+                    <div class="control">
+                        <input class="button buttonSubmit" id="buttonSubmit" type="submit" value="Send your review!">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal" id="modalInfo">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <div class="box">
+                    <div class="boxTop">  
+                        <div class="boxTopIcon">
+                            <img src="images/check.png" alt="Check icon">
+                        </div>
+                        <h4>Awesome! Your review has been sent</h4>
+                    </div>
+                    <hr>
+                    <div class="boxBottom">
+                        <h3>Check out your data:</h3>
+                        
+                        <div>
+                            <i class="fas fa-angle-right"></i> <label class="modalTitleLabels" for="modalName">Your name: </label>
+                            <label id="modalName" title="Name">Label text</label>                        
+                        </div>
+                        <div>
+                            <i class="fas fa-angle-right"></i> <label class="modalTitleLabels" for="modalEmail">Your email: </label>
+                            <label id="modalEmail" title="Email">Label text</label>
+                        </div>
+                        <div>
+                            <i class="fas fa-angle-right"></i> <label class="modalTitleLabels" for="modalReviewTitle">Your review title: </label>
+                            <label id="modalReviewTitle" title="Review title">Label text</label>
+                        </div>
+                        <div>
+                            <i class="fas fa-angle-right"></i> <label class="modalTitleLabels" for="modalReviewText">Your review description: </label>
+                            <label id="modalReviewText" title="Review descrition">Label text</label>
+                        </div>
+                        <div>
+                            <i class="fas fa-angle-right"></i> <label class="modalTitleLabels ratingLabel" for="modalRating">The rating: </label>                            
+                            <label class="starability-result" data-rating=""> </label>
+                        </div>
+
+                        <button class="button buttonCloseModal">Got it!</button>
+
+                    </div>                 
+                </div>
+            </div>
+            <button class="modal-close"></button>
+          </div>
+
+          <script>
+            var vcc = function(g_recaptcha_response) {
+            var $captcha = $( '#recaptcha' );
+            
+            $( '.msg-error' ).text('');
+               $captcha.removeClass( "error" );
+            };
+           </script>
+
+    <script src='scripts/getAllData.js'></script>
+</body>
+</html>
